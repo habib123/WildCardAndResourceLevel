@@ -8,7 +8,6 @@ module Checkwildcard
     i = 0
     j = 0
     @params_arr.each do |e|
-      puts e.include? '*'
        if e.include? '*'
            i =  i+1
        else
@@ -46,7 +45,6 @@ module Checkwildcard
 
   def model_includes_single_or_multiple_two_level_resources
     array = @include_param.split(",")
-    puts array.inspect
     temp = []
     arr = []
     h = Hash.new { |h, k| h[k] = [] }
