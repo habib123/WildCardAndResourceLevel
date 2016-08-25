@@ -72,8 +72,6 @@ module Checkwildcard
         array[i]=temp
       end
     end
-    arr= array.group_by(&:first)
-    arr=array.group_by(&:first).map{ |k,a| [k,a.map(&:last)] }
     arr= Hash[ array.group_by(&:first).map{ |k,a| [k,a.map(&:last)] } ]
     arr.each do |hs|
       a<< {hs[0] => hs[1]}
