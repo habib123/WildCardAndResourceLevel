@@ -25,6 +25,7 @@ module Checkwildcard
     arr=[]
     h = Hash.new { |h, k| h[k] = [] }
     internal_h =  Hash.new{|h, k| h[k]= [] }
+
     array.each_index do |i|
       if array[i].include? '.'
         item = array[i].to_s.split(".")
@@ -74,4 +75,5 @@ module Checkwildcard
     end
     a
   end
+
 end
