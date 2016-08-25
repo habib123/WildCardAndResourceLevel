@@ -43,35 +43,6 @@ module Checkwildcard
     arr.uniq
   end
 
-  def model_includes_single_or_multiple_two_level_resources
-    array = @include_param.split(",")
-    temp = []
-    arr = []
-    h = Hash.new { |h, k| h[k] = [] }
-
-    array.each_index do |i|
-      if array[i].include? '.'
-        temp =array[i].to_s.split(".")
-        array[i]=temp
-      end
-    end
-
-    array.each do |a|
-      if array.length ==2
-        if array[0][0]!=array[1][0]
-          arr<<{a[0].to_sym => [a[1].to_sym]}
-        else
-          h[a[0].to_sym]<<a[1].to_sym
-        end
-      else
-        arr<<{a[0].to_sym => [a[1].to_sym]}
-      end
-    end
-
-    arr<<h if h.any?
-    arr
-  end
-
   def check_two_level
     flag = false
     @params_arr.each do |e|
@@ -84,6 +55,30 @@ module Checkwildcard
       end
     end
     flag
+  end
+
+  def model_includes_single_or_multiple_two_level_resources
+    array = @params_arr
+    temp = []
+    arr = []
+    a = []
+    h = Hash.new { |h, k| h[k] = [] }
+
+    array.each_index do |i|
+      if array[i].include? '.'
+        temp =array[i].to_s.split(".")
+        temp[0] = temp[0].to_s.to_sym
+        temp[1]=temp[1].to_s.to_sym
+        array[i]=temp
+      end
+    end
+    arr= array.group_by(&:first)
+    arr=array.group_by(&:first).map{ |k,a| [k,a.map(&:last)] }
+    arr= Hash[ array.group_by(&:first).map{ |k,a| [k,a.map(&:last)] } ]
+    arr.each do |hs|
+      a<< {hs[0] => hs[1]}
+    end
+    a
   end
 
 end

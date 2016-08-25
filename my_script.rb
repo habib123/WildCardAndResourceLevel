@@ -94,6 +94,7 @@ class IncludedResourceParams
     else
       if check_two_level
         model_includes_single_or_multiple_two_level_resources
+        #duplicate_item
       else
         model_includes_single_or_multiple_three_level_resources
       end
